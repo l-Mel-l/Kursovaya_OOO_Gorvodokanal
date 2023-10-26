@@ -1,16 +1,18 @@
 package com.example.demo1;
 
+import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.scene.control.ScrollPane;
 
 import java.io.IOException;
 import java.net.URL;
@@ -38,11 +40,11 @@ public class HelloController implements javafx.fxml.Initializable{
     @FXML
     private Button signUpRegButton;
     @FXML
-    private VBox MyzayavID;
+    private VBox myApplicationsVBox;
     @FXML
     private  Label DATEID;
     @FXML
-    private ScrollPane scrollPane;
+    private Pane pane;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ZAYAVID.setWrapText(true);
@@ -53,11 +55,18 @@ public class HelloController implements javafx.fxml.Initializable{
         NUMBERID.setText(userinfo[3]);
         MAILID.setText(userinfo[4]);
         DATEID.setText(String.valueOf(LocalDate.now()));
+
+        // Load user's old applications from the database
+        String[][] userApplications = new String[][]{getUerZayav(InfoBank.currentMail)};
+
+        // Create panes for each old application
+        for (String[] application : userApplications) {
+            createApplicationPane(application);
+        }
+
         Popup popup = new Popup();
         Label popupLabel = new Label("Заявление отправлено");
         popup.getContent().add(popupLabel);
-        scrollPane.setFitToWidth(true);
-        scrollPane.setFitToHeight(true);
 
         LogOutBtn.setOnAction(actionEvent -> {
             // Закрываем текущее окно
@@ -86,7 +95,8 @@ public class HelloController implements javafx.fxml.Initializable{
             String dataText = BORNDATEID.getText().trim();
             String fioText = FIOID.getText().trim();
             String zayavText = ZAYAVID.getText();
-            NewZayav(loginText,numberText,adressText,fioText,dataText,zayavText);
+            String datepodText = DATEID.getText();
+            NewZayav(loginText,numberText,adressText,fioText,dataText,datepodText,zayavText);
             Alert alert = new Alert(AlertType.INFORMATION);
             alert.setTitle("Успех");
             alert.setHeaderText(null);
@@ -98,39 +108,39 @@ public class HelloController implements javafx.fxml.Initializable{
 
             // Отображаем всплывающее окно и ждем закрытия
             alert.showAndWait();
-
-            // Создание нового AnchorPane с Label
-            AnchorPane newApplicationPane = new AnchorPane();
-            newApplicationPane.setMinHeight(50);
-            newApplicationPane.setPrefWidth(200);
-            newApplicationPane.setStyle("-fx-background-color: #ECECEC; -fx-padding: 5px; -fx-margin: 5px;");
-
-            Label idLabel = new Label("ID: " + "1");
-            idLabel.setLayoutX(10);
-            idLabel.setLayoutY(10);
-
-            Label fioLabel = new Label("ФИО: " + FIOID.getText());
-            fioLabel.setLayoutX(10);
-            fioLabel.setLayoutY(30);
-
-            Label dateLabel = new Label("Дата подачи: " + LocalDate.now());
-            dateLabel.setLayoutX(10);
-            dateLabel.setLayoutY(50);
-
-            newApplicationPane.getChildren().addAll(idLabel, fioLabel, dateLabel);
-
-            // Добавление нового AnchorPane в MyzayavID
-            MyzayavID.getChildren().add(newApplicationPane);
-
-            // Вывод информации о заявлении в консоль при клике на AnchorPane
-            newApplicationPane.setOnMouseClicked(mouseEvent -> {
-                System.out.println("Ваше заявление: " + fioLabel.getText());
-            });
-
-
-
         });
 
     }
+    private void createApplicationPane(String[] application) {
+        String id = application[0];
+        String fio = application[1];
+        String date = application[3];
+
+        AnchorPane newApplicationPane = new AnchorPane();
+        newApplicationPane.setMinHeight(50);
+        newApplicationPane.setPrefWidth(200);
+        newApplicationPane.setStyle("-fx-background-color: #ECECEC; -fx-padding: 5px; -fx-margin: 5px;");
+
+        Label idLabel = new Label("ID: " + id);
+        idLabel.setLayoutX(10);
+        idLabel.setLayoutY(10);
+
+        Label fioLabel = new Label("ФИО: " + fio);
+        fioLabel.setLayoutX(10);
+        fioLabel.setLayoutY(30);
+
+        Label dateLabel = new Label("Дата подачи: " + date);
+        dateLabel.setLayoutX(10);
+        dateLabel.setLayoutY(50);
+
+        newApplicationPane.getChildren().addAll(idLabel, fioLabel, dateLabel);
+
+        // Add click event handler to display application information
+        newApplicationPane.setOnMouseClicked(mouseEvent ->
+                System.out.println("Ваше заявление: " + fioLabel.getText()));
+
+        myApplicationsVBox.getChildren().add(newApplicationPane);
+    }
+
 
 }

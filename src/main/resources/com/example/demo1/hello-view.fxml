@@ -11,6 +11,7 @@
 
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.Pane?>
 <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" style="-fx-background-color: ff9900;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo1.HelloController">
     <children>
         <AnchorPane layoutY="94.0" prefHeight="306.0" prefWidth="700.0" style="-fx-background-color: white;">
@@ -58,11 +59,15 @@
                         </AnchorPane>
                   </content>
                 </Tab>
-                <Tab text="Мои Заявления">
-                    <ScrollPane fx:id="scrollPane" prefWidth="400" prefHeight="400">
-                        <VBox fx:id="MyzayavID" spacing="10"/>
-                    </ScrollPane>
-                </Tab>
+                  <Tab text="Мои Заявления">
+                      <content>
+                          <ScrollPane fitToWidth="true" fitToHeight="true">
+                              <AnchorPane fx:id="myApplicationsAnchorPane" prefWidth="400" prefHeight="400">
+                                  <VBox fx:id="myApplicationsVBox" spacing="10" />
+                              </AnchorPane>
+                          </ScrollPane>
+                      </content>
+                  </Tab>
               </tabs>
             </TabPane>
          </children>
@@ -72,6 +77,6 @@
                 <Font name="Agency FB" size="31.0" />
             </font>
         </Label>
-      <Button fx:id="LogOutBtn" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="55.0" text="Выйти" />
+        <Button fx:id="LogOutBtn" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="55.0" text="Выйти" />
     </children>
 </AnchorPane>
