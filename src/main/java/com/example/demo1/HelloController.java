@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.scene.control.Label;
 import javafx.stage.Popup;
@@ -57,7 +58,7 @@ public class HelloController implements javafx.fxml.Initializable{
         DATEID.setText(String.valueOf(LocalDate.now()));
 
         // Load user's old applications from the database
-        String[][] userApplications = new String[][]{getUerZayav(InfoBank.currentMail)};
+        List<String[]> userApplications = getUerZayav(InfoBank.currentMail);
 
         // Create panes for each old application
         for (String[] application : userApplications) {
@@ -97,6 +98,7 @@ public class HelloController implements javafx.fxml.Initializable{
             String zayavText = ZAYAVID.getText();
             String datepodText = DATEID.getText();
             NewZayav(loginText,numberText,adressText,fioText,dataText,datepodText,zayavText);
+            updateApplicationsUI();
             Alert alert = new Alert(AlertType.INFORMATION);
             alert.setTitle("Успех");
             alert.setHeaderText(null);
@@ -136,10 +138,35 @@ public class HelloController implements javafx.fxml.Initializable{
         newApplicationPane.getChildren().addAll(idLabel, fioLabel, dateLabel);
 
         // Add click event handler to display application information
-        newApplicationPane.setOnMouseClicked(mouseEvent ->
-                System.out.println("Ваше заявление: " + fioLabel.getText()));
+        newApplicationPane.setOnMouseClicked(mouseEvent -> {
+            newApplicationPane.getScene().getWindow().hide();
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("Zayav-view.fxml"));
+                Parent root = loader.load();
+
+                Zayav zayavInfoController = loader.getController();
+                zayavInfoController.initializeWithData(application);
+
+                Stage stage = new Stage();
+                stage.setTitle("Информация о заявлении");
+                stage.setScene(new Scene(root));
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
 
         myApplicationsVBox.getChildren().add(newApplicationPane);
+    }
+    private void updateApplicationsUI() {
+        // Очистите существующие заявления
+        myApplicationsVBox.getChildren().clear();
+
+        // Загрузите заявления из базы данных и создайте новые панели
+        List<String[]> userApplications = getUerZayav(InfoBank.currentMail);
+        for (String[] application : userApplications) {
+            createApplicationPane(application);
+        }
     }
 
 

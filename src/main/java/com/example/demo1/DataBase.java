@@ -1,7 +1,8 @@
 package com.example.demo1;
 
 import java.sql.*;
-import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DataBase {
     public static void createDB() {
@@ -72,17 +73,22 @@ public class DataBase {
         }
     }
 
-    public static String[] getUerZayav(String mail) {
+    public static List<String[]> getUerZayav(String mail) {
+        List<String[]> userZayavList = new ArrayList<>();
+
         try (Connection connection = DriverManager.getConnection("jdbc:sqlite:" + "Vodokanal.db");
              Statement statement = connection.createStatement()) {
             ResultSet result = statement.executeQuery("SELECT * FROM Заявление WHERE Почта=\"" + mail + "\"");
             while (result.next()) {
-                return new String[]{result.getString("Id"), result.getString("ФИО"), result.getString("Почта"), result.getString("ДатаПодачи")};
+                String id = result.getString("Id");
+                String fio = result.getString("ФИО");
+                String date = result.getString("ДатаПодачи");
+                String zayav = result.getString("Заявка");
+                userZayavList.add(new String[]{id, fio, mail, date,zayav});
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
-        return null;
-    }
-}
+        return userZayavList;
+    }}
