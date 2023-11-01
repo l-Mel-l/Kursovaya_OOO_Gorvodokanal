@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" style="-fx-background-color: ff9900;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo1.Zayav">
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" style="-fx-background-color: #008000;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo1.AdministratorZayav">
     <children>
         <AnchorPane layoutY="94.0" prefHeight="306.0" prefWidth="700.0" style="-fx-background-color: white;">
             <children>
@@ -35,13 +35,31 @@
                         <Blend />
                     </effect>
                 </Label>
-                  <TextArea fx:id="zayavTextArea" editable="false" layoutX="153.0" layoutY="4.0" prefHeight="299.0" prefWidth="533.0" wrapText="true" />
+                <TextArea fx:id="zayavTextArea" editable="false" layoutX="353.0" layoutY="4.0" prefHeight="299.0" prefWidth="333.0" wrapText="true" />
                 <Label layoutX="9.0" layoutY="241.0" prefHeight="17.0" prefWidth="112.0" text="Статус">
                     <effect>
                         <Blend />
                     </effect>
                 </Label>
                 <Label fx:id="StatuszayavId" layoutX="9.0" layoutY="269.0" prefHeight="17.0" prefWidth="76.0" text="----" />
+            <Label layoutX="172.0" layoutY="35.0" prefHeight="17.0" prefWidth="89.0" text="Телефон">
+               <effect>
+                  <Blend />
+               </effect>
+            </Label>
+            <Label layoutX="172.0" layoutY="85.0" prefHeight="17.0" prefWidth="89.0" text="Адрес">
+               <effect>
+                  <Blend />
+               </effect>
+            </Label>
+            <Label layoutX="172.0" layoutY="136.0" prefHeight="17.0" prefWidth="89.0" text="Дата Рождения">
+               <effect>
+                  <Blend />
+               </effect>
+            </Label>
+            <Label fx:id="numberZayavid" layoutX="172.0" layoutY="61.0" prefHeight="17.0" prefWidth="76.0" text="----" />
+            <Label fx:id="addressZayavid" layoutX="172.0" layoutY="111.0" prefHeight="17.0" prefWidth="76.0" text="----" />
+            <Label fx:id="IborndateZayavid" layoutX="172.0" layoutY="165.0" prefHeight="17.0" prefWidth="76.0" text="----" />
             </children>
         </AnchorPane>
         <Label alignment="CENTER" contentDisplay="CENTER" layoutX="231.0" layoutY="31.0" prefHeight="42.0" prefWidth="239.0" text="Заявление" textFill="WHITE">
@@ -49,6 +67,6 @@
                 <Font name="Agency FB" size="31.0" />
             </font>
         </Label>
-        <Button fx:id="BackZayavBtn" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="55.0" text="Назад" />
+        <Button fx:id="BackAdministratorZayavBtn" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="55.0" text="Назад" />
     </children>
 </AnchorPane>

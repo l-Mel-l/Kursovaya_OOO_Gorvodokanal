@@ -68,6 +68,26 @@ public class Register {
 
     private void loginUser(String loginText, String passwordText) {
         int result = DataBase.getUserByMail(loginText, passwordText);
+        if (result == 2) {
+            InfoBank.currentMail = loginText;
+            signInButton.getScene().getWindow().hide();
+
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("Administrator-view.fxml"));
+
+            try {
+                Parent root = loader.load();
+
+                // Получаем текущий Stage
+                Stage stage = (Stage) SignUpButton.getScene().getWindow();
+
+                // Устанавливаем новое содержимое для окна
+                stage.setScene(new Scene(root));
+                stage.show();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
         if (result == 1) {
             InfoBank.currentMail = loginText;
             signInButton.getScene().getWindow().hide();

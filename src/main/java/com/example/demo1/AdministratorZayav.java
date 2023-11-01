@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class Zayav {
+public class AdministratorZayav {
     @FXML
     private Label IdZayav;
     @FXML
@@ -23,15 +23,24 @@ public class Zayav {
     @FXML
     private TextArea zayavTextArea;
     @FXML
-    private Button BackZayavBtn;
+    private Button BackAdministratorZayavBtn;
     @FXML
     private Label StatuszayavId;
+    @FXML
+    private Label numberZayavid;
+    @FXML
+    private Label addressZayavid;
+    @FXML
+    private  Label IborndateZayavid;
 
     public void initializeWithData(String[] application) {
         IdZayav.setText(application[0]);
         fioZayav.setText(application[1]);
         mailZayavid.setText(application[2]);
         DatepodZayavId.setText(application[3]);
+        numberZayavid.setText(application[5]);
+        addressZayavid.setText(application[6]);
+        IborndateZayavid.setText(application[7]);
 
         // Устанавливаем текст в TextArea
         zayavTextArea.setText(application[4]);
@@ -53,18 +62,18 @@ public class Zayav {
             Tooltip.install(DatepodZayavId, mailTooltip);
         }
 
-        BackZayavBtn.setOnAction(actionEvent -> {
+        BackAdministratorZayavBtn.setOnAction(actionEvent -> {
             // Закрываем текущее окно
-            BackZayavBtn.getScene().getWindow().hide();
+            BackAdministratorZayavBtn.getScene().getWindow().hide();
 
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("hello-view.fxml"));
+            loader.setLocation(getClass().getResource("Administrator-view.fxml"));
 
             try {
                 Parent root = loader.load();
 
                 // Получаем текущий Stage
-                Stage stage = (Stage) BackZayavBtn.getScene().getWindow();
+                Stage stage = (Stage) BackAdministratorZayavBtn.getScene().getWindow();
 
                 // Устанавливаем новое содержимое для окна
                 stage.setScene(new Scene(root));

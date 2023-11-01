@@ -6,9 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -21,8 +19,6 @@ import java.util.List;
 import java.util.ResourceBundle;
 import javafx.scene.control.Label;
 import javafx.stage.Popup;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.Alert.AlertType;
 
 import static com.example.demo1.DataBase.*;
@@ -44,8 +40,6 @@ public class HelloController implements javafx.fxml.Initializable{
     private VBox myApplicationsVBox;
     @FXML
     private  Label DATEID;
-    @FXML
-    private Pane pane;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ZAYAVID.setWrapText(true);
@@ -97,19 +91,33 @@ public class HelloController implements javafx.fxml.Initializable{
             String fioText = FIOID.getText().trim();
             String zayavText = ZAYAVID.getText();
             String datepodText = DATEID.getText();
-            NewZayav(loginText,numberText,adressText,fioText,dataText,datepodText,zayavText);
-            updateApplicationsUI();
-            Alert alert = new Alert(AlertType.INFORMATION);
-            alert.setTitle("Успех");
-            alert.setHeaderText(null);
-            alert.setContentText("Заявление отправлено");
+            if(ZAYAVID == null){
+                Alert alert = new Alert(AlertType.INFORMATION);
+                alert.setTitle("Ошибка");
+                alert.setHeaderText(null);
+                alert.setContentText("Заявление не должно быть пустым");
 
-            // Создаем кнопку "Ок" и добавляем ее в всплывающее окно
-            ButtonType okButton = new ButtonType("Ок");
-            alert.getButtonTypes().setAll(okButton);
+                // Создаем кнопку "Ок" и добавляем ее в всплывающее окно
+                ButtonType okButton = new ButtonType("Ок");
+                alert.getButtonTypes().setAll(okButton);
 
-            // Отображаем всплывающее окно и ждем закрытия
-            alert.showAndWait();
+                // Отображаем всплывающее окно и ждем закрытия
+                alert.showAndWait();}
+            else{
+                NewZayav(loginText,numberText,adressText,fioText,dataText,datepodText,zayavText);
+                updateApplicationsUI();
+                Alert alert = new Alert(AlertType.INFORMATION);
+                alert.setTitle("Успех");
+                alert.setHeaderText(null);
+                alert.setContentText("Заявление отправлено");
+
+                // Создаем кнопку "Ок" и добавляем ее в всплывающее окно
+                ButtonType okButton = new ButtonType("Ок");
+                alert.getButtonTypes().setAll(okButton);
+
+                // Отображаем всплывающее окно и ждем закрытия
+                alert.showAndWait();
+            }
         });
 
     }
@@ -122,6 +130,31 @@ public class HelloController implements javafx.fxml.Initializable{
         newApplicationPane.setMinHeight(50);
         newApplicationPane.setPrefWidth(200);
         newApplicationPane.setStyle("-fx-background-color: #ECECEC; -fx-padding: 5px; -fx-margin: 5px;");
+            if (FIOID.getText().length() > 10) {
+                Tooltip fioTooltip = new Tooltip(FIOID.getText());
+                Tooltip.install(FIOID, fioTooltip);
+            }
+        if (NUMBERID.getText().length() > 10) {
+            Tooltip numberTooltip = new Tooltip(NUMBERID.getText());
+            Tooltip.install(NUMBERID, numberTooltip);
+        }
+        if (ADRESSID.getText().length() > 10) {
+            Tooltip addressTooltip = new Tooltip(ADRESSID.getText());
+            Tooltip.install(ADRESSID, addressTooltip);
+        }
+        if (MAILID.getText().length() > 10) {
+            Tooltip mailTooltip = new Tooltip(MAILID.getText());
+            Tooltip.install(MAILID, mailTooltip);
+        }
+        if (BORNDATEID.getText().length() > 10) {
+            Tooltip bornDateTooltip = new Tooltip(BORNDATEID.getText());
+            Tooltip.install(BORNDATEID, bornDateTooltip);
+        }
+        if (DATEID.getText().length() > 10) {
+            Tooltip dateTooltip = new Tooltip(DATEID.getText());
+            Tooltip.install(DATEID, dateTooltip);
+        }
+
 
         Label idLabel = new Label("ID: " + id);
         idLabel.setLayoutX(10);

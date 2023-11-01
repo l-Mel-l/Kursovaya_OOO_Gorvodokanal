@@ -28,23 +28,24 @@ public class DataBase {
     }
 
     public static int getUserByMail(String mail, String password) {
+        if (mail.equals("dudoroff.k@yandex.ru") && password.equals("qwertyuiop7")) {
+            return 2; // Специфичная почта и пароль
+        }
+
         try (Connection connection = DriverManager.getConnection("jdbc:sqlite:" + "Vodokanal.db");
              Statement statement = connection.createStatement()) {
             ResultSet result = statement.executeQuery("SELECT Пароль FROM Клиент WHERE Почта=\"" + mail + "\"");
             while (result.next()) {
-                if (result.getString("Пароль").equals(password)) {
-                    return 1;
-                } else {
-                    return 0;
+                String storedPassword = result.getString("Пароль");
+                if (storedPassword.equals(password)) {
+                    return 1; // Пароль совпадает с введенным
                 }
             }
-
-
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
-        return 0;
+        return 0; // Если не найдено совпадений
     }
 
     public static String[] getUerInfo(String mail) {
@@ -91,4 +92,29 @@ public class DataBase {
         }
 
         return userZayavList;
-    }}
+    }
+    public static List<String[]> getAllZayav() {
+        // Retrieve all applications from the database
+        List<String[]> allZayavList = new ArrayList<>();
+
+        try (Connection connection = DriverManager.getConnection("jdbc:sqlite:" + "Vodokanal.db");
+             Statement statement = connection.createStatement()) {
+            ResultSet result = statement.executeQuery("SELECT * FROM Заявление");
+            while (result.next()) {
+                String id = result.getString("Id");
+                String fio = result.getString("ФИО");
+                String mail = result.getString("Почта");
+                String date = result.getString("ДатаПодачи");
+                String zayav = result.getString("Заявка");
+                String number = result.getString("Телефон");
+                String address = result.getString("Адрес");
+                String borndate = result.getString("ДатаРождения");
+                allZayavList.add(new String[]{id, fio, mail, date, zayav,number,address,borndate});
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return allZayavList;
+    }
+}

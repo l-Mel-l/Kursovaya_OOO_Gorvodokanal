@@ -56,38 +56,51 @@ public class SignUp {
             String adressText = Adresreg.getText().trim();
             String dataText = Datereg.getText().trim();
             String fioText = FIOreg.getText().trim();
-            if (!loginText.equals("") && !passwordText.equals("")&& !numberText.equals("")&& !adressText.equals("")&& !dataText.equals("")&& !fioText.equals(""))
+            if (!loginText.equals("") && !passwordText.equals("")&& !numberText.equals("")&& !adressText.equals("")&& !dataText.equals("")&& !fioText.equals("")){
                 NewUser(loginText, passwordText,numberText,adressText,fioText,dataText);
-            else
-                System.out.println("Логин пустой");
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Успех");
-            alert.setHeaderText(null);
-            alert.setContentText("Вы зарегистрировались!");
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Успех");
+                alert.setHeaderText(null);
+                alert.setContentText("Вы зарегистрировались!");
 
-            // Создаем кнопку "Ок" и добавляем ее в всплывающее окно
-            ButtonType okButton = new ButtonType("Ок");
-            alert.getButtonTypes().setAll(okButton);
+                // Создаем кнопку "Ок" и добавляем ее в всплывающее окно
+                ButtonType okButton = new ButtonType("Ок");
+                alert.getButtonTypes().setAll(okButton);
 
-            // Отображаем всплывающее окно и ждем закрытия
-            alert.showAndWait();
-            signUpRegButton.getScene().getWindow().hide();
+                // Отображаем всплывающее окно и ждем закрытия
+                alert.showAndWait();
+                signUpRegButton.getScene().getWindow().hide();
 
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("Register-view.fxml"));
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(getClass().getResource("Register-view.fxml"));
 
-            try {
-                Parent root = loader.load();
+                try {
+                    Parent root = loader.load();
 
-                // Получаем текущий Stage
-                Stage stage = (Stage) signUpRegButton.getScene().getWindow();
+                    // Получаем текущий Stage
+                    Stage stage = (Stage) signUpRegButton.getScene().getWindow();
 
-                // Устанавливаем новое содержимое для окна
-                stage.setScene(new Scene(root));
-                stage.show();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+                    // Устанавливаем новое содержимое для окна
+                    stage.setScene(new Scene(root));
+                    stage.show();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
             }
+
+            else{
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Ошибка");
+                alert.setHeaderText(null);
+                alert.setContentText("Зполните все данные");
+
+                // Создаем кнопку "Ок" и добавляем ее в всплывающее окно
+                ButtonType okButton = new ButtonType("Ок");
+                alert.getButtonTypes().setAll(okButton);
+
+                // Отображаем всплывающее окно и ждем закрытия
+                alert.showAndWait();}
+
         });
         BackButtonReg.setOnAction(actionEvent -> {
             // Закрываем текущее окно
