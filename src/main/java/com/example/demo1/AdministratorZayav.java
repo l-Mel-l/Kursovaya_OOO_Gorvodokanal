@@ -1,5 +1,6 @@
 package com.example.demo1;
 
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -8,6 +9,8 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+
+import static com.example.demo1.DataBase.updateZayavStatus;
 
 public class AdministratorZayav {
     @FXML
@@ -25,7 +28,7 @@ public class AdministratorZayav {
     @FXML
     private Button BackAdministratorZayavBtn;
     @FXML
-    private Label StatuszayavId;
+    private ChoiceBox<String>  StatuszayavId;
     @FXML
     private Label numberZayavid;
     @FXML
@@ -41,6 +44,19 @@ public class AdministratorZayav {
         numberZayavid.setText(application[5]);
         addressZayavid.setText(application[6]);
         IborndateZayavid.setText(application[7]);
+        StatuszayavId.setValue(application[8]);
+
+        String currentStatus = application[8];
+        StatuszayavId.setItems(FXCollections.observableArrayList("Создано", "На рассмотрении","Отклонено", "В работе","Завершено"));
+        StatuszayavId.setValue(currentStatus);
+
+        // Слушатель для изменения статуса
+        StatuszayavId.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            // Обновите статус в базе данных
+            updateZayavStatus(application[0], newValue);
+            // Обновите цвет статуса
+        });
+
 
         // Устанавливаем текст в TextArea
         zayavTextArea.setText(application[4]);

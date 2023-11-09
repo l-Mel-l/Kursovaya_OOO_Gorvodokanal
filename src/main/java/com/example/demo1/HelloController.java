@@ -104,7 +104,8 @@ public class HelloController implements javafx.fxml.Initializable{
                 // Отображаем всплывающее окно и ждем закрытия
                 alert.showAndWait();}
             else{
-                NewZayav(loginText,numberText,adressText,fioText,dataText,datepodText,zayavText);
+                String status = "Создано";
+                NewZayav(loginText,numberText,adressText,fioText,dataText,datepodText,zayavText,status);
                 updateApplicationsUI();
                 Alert alert = new Alert(AlertType.INFORMATION);
                 alert.setTitle("Успех");

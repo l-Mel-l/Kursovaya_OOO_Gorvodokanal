@@ -11,10 +11,10 @@
     <children>
         <AnchorPane layoutY="94.0" prefHeight="306.0" prefWidth="700.0" style="-fx-background-color: white;">
             <children>
-                <Label fx:id="IdZayav" layoutX="9.0" layoutY="61.0" prefHeight="17.0" prefWidth="76.0" text="----" />
-                <Label fx:id="DatepodZayavId" layoutX="9.0" layoutY="215.0" prefHeight="17.0" prefWidth="76.0" text="----" />
-                <Label fx:id="fioZayav" layoutX="9.0" layoutY="111.0" prefHeight="17.0" prefWidth="76.0" text="-----" />
-                <Label fx:id="mailZayavid" layoutX="9.0" layoutY="165.0" prefHeight="17.0" prefWidth="76.0" text="----" />
+                <Label fx:id="IdZayav" layoutX="9.0" layoutY="52.0" prefHeight="17.0" prefWidth="76.0" text="----" />
+                <Label fx:id="DatepodZayavId" layoutX="9.0" layoutY="208.0" prefHeight="17.0" prefWidth="76.0" text="----" />
+                <Label fx:id="fioZayav" layoutX="9.0" layoutY="102.0" prefHeight="17.0" prefWidth="76.0" text="-----" />
+                <Label fx:id="mailZayavid" layoutX="9.0" layoutY="154.0" prefHeight="17.0" prefWidth="76.0" text="----" />
                 <Label layoutX="9.0" layoutY="136.0" prefHeight="17.0" prefWidth="112.0" text="Почта">
                     <effect>
                         <Blend />
@@ -41,7 +41,7 @@
                         <Blend />
                     </effect>
                 </Label>
-                <Label fx:id="StatuszayavId" layoutX="9.0" layoutY="269.0" prefHeight="17.0" prefWidth="76.0" text="----" />
+                <Label fx:id="StatuszayavId" layoutX="9.0" layoutY="258.0" prefHeight="17.0" prefWidth="112.0" text="----" />
             </children>
         </AnchorPane>
         <Label alignment="CENTER" contentDisplay="CENTER" layoutX="231.0" layoutY="31.0" prefHeight="42.0" prefWidth="239.0" text="Заявление" textFill="WHITE">

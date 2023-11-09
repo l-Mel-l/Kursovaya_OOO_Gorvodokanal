@@ -9,7 +9,7 @@ public class DataBase {
         try (
                 Connection connection = DriverManager.getConnection("jdbc:sqlite:" + "Vodokanal.db");
                 Statement statement = connection.createStatement()) {
-            statement.execute("CREATE TABLE IF NOT EXISTS Заявление (Id INTEGER PRIMARY KEY, ФИО VARCHAR, Телефон INTEGER, Адрес VARCHAR,ДатаРождения VARCHAR, Почта  VARCHAR,ДатаПодачи VARCHAR, Заявка VARCHAR)");
+            statement.execute("CREATE TABLE IF NOT EXISTS Заявление (Id INTEGER PRIMARY KEY, ФИО VARCHAR, Телефон INTEGER, Адрес VARCHAR,ДатаРождения VARCHAR, Почта  VARCHAR,ДатаПодачи VARCHAR, Заявка VARCHAR, Статус VARCHAR)");
             statement.execute("CREATE TABLE IF NOT EXISTS Клиент (Почта PRIMARY KEY, Пароль VARCHAR, Телефон INTEGER, Адрес VARCHAR, Дата VARCHAR, ФИО VARCHAR)");
         } catch (SQLException e) {
             e.printStackTrace();
@@ -53,7 +53,7 @@ public class DataBase {
              Statement statement = connection.createStatement()) {
             ResultSet result = statement.executeQuery("SELECT * FROM Клиент WHERE Почта=\"" + mail + "\"");
             while (result.next()) {
-                return new String[]{result.getString("ФИО"), result.getString("Дата"), result.getString("Адрес"), result.getString("Телефон"), result.getString("Почта")};
+                return new String[]{result.getString("ФИО"), result.getString("Дата"), result.getString("Адрес"), result.getString("Телефон"), result.getString("Почта"),result.getString("Пароль")};
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -62,12 +62,12 @@ public class DataBase {
         return null;
     }
 
-    public static void NewZayav(String loginText, String numberText, String adressText, String fioText, String dataText, String datapodText, String zayavText) {
+    public static void NewZayav(String loginText, String numberText, String adressText, String fioText, String dataText, String datapodText, String zayavText, String status) {
         try (
 
                 Connection connection = DriverManager.getConnection("jdbc:sqlite:" + "Vodokanal.db");
                 Statement statement = connection.createStatement()) {
-            statement.execute("INSERT INTO Заявление (ФИО, Телефон, Адрес, ДатаРождения, Почта,ДатаПодачи, Заявка) VALUES (\"" + fioText + "\",\"" + numberText + "\",\"" + adressText + "\",\"" + dataText + "\",\"" + loginText + "\",\"" + datapodText + "\",\""+ zayavText + "\")");
+            statement.execute("INSERT INTO Заявление (ФИО, Телефон, Адрес, ДатаРождения, Почта,ДатаПодачи, Заявка , Статус) VALUES (\"" + fioText + "\",\"" + numberText + "\",\"" + adressText + "\",\"" + dataText + "\",\"" + loginText + "\",\"" + datapodText + "\",\""+ zayavText + "\",\"" + status + "\")");
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -85,7 +85,11 @@ public class DataBase {
                 String fio = result.getString("ФИО");
                 String date = result.getString("ДатаПодачи");
                 String zayav = result.getString("Заявка");
-                userZayavList.add(new String[]{id, fio, mail, date,zayav});
+                String number = result.getString("Телефон");
+                String address = result.getString("Адрес");
+                String borndate = result.getString("ДатаРождения");
+                String status = result.getString("Статус");
+                userZayavList.add(new String[]{id, fio, mail, date,zayav,number,address,borndate,status});
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -109,12 +113,44 @@ public class DataBase {
                 String number = result.getString("Телефон");
                 String address = result.getString("Адрес");
                 String borndate = result.getString("ДатаРождения");
-                allZayavList.add(new String[]{id, fio, mail, date, zayav,number,address,borndate});
+                String status = result.getString("Статус");
+                allZayavList.add(new String[]{id, fio, mail, date, zayav,number,address,borndate,status});
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
         return allZayavList;
+    }
+    public static List<String[]> getAllClient() {
+        // Retrieve all applications from the database
+        List<String[]> allClientList = new ArrayList<>();
+
+        try (Connection connection = DriverManager.getConnection("jdbc:sqlite:" + "Vodokanal.db");
+             Statement statement = connection.createStatement()) {
+            ResultSet result = statement.executeQuery("SELECT * FROM Клиент");
+            while (result.next()) {
+                String fioclient = result.getString("ФИО");
+                String mailclient = result.getString("Почта");
+                String numberclient = result.getString("Телефон");
+                String addressclient = result.getString("Адрес");
+                String borndateclient = result.getString("Дата");
+                String parolclient = result.getString("Пароль");
+                allClientList.add(new String[]{fioclient, mailclient,numberclient,addressclient,borndateclient,parolclient});
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return allClientList;
+    }
+    public static void updateZayavStatus(String zayavId, String newStatus) {
+        try (Connection connection = DriverManager.getConnection("jdbc:sqlite:" + "Vodokanal.db");
+             Statement statement = connection.createStatement()) {
+            String query = "UPDATE Заявление SET Статус='" + newStatus + "' WHERE Id=" + zayavId;
+            statement.executeUpdate(query);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

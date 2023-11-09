@@ -1,14 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.effect.Blend?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.example.demo1.Client"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" style="-fx-background-color: #008000;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo1.Client">
+    <children>
+        <AnchorPane layoutY="94.0" prefHeight="306.0" prefWidth="700.0" style="-fx-background-color: white;">
+            <children>
+                <Label fx:id="Fioclientid" layoutX="9.0" layoutY="61.0" prefHeight="17.0" prefWidth="76.0" text="-----" />
+                <Label fx:id="MailClientid" layoutX="9.0" layoutY="165.0" prefHeight="17.0" prefWidth="76.0" text="----" />
+                <Label layoutX="9.0" layoutY="136.0" prefHeight="17.0" prefWidth="112.0" text="Почта">
+                    <effect>
+                        <Blend />
+                    </effect>
+                </Label>
+                <Label layoutX="9.0" layoutY="35.0" prefHeight="17.0" prefWidth="112.0" text="ФИО">
+                    <effect>
+                        <Blend />
+                    </effect>
+                </Label>
+                <Label layoutX="172.0" layoutY="35.0" prefHeight="17.0" prefWidth="89.0" text="Телефон">
+                    <effect>
+                        <Blend />
+                    </effect>
+                </Label>
+                <Label layoutX="172.0" layoutY="85.0" prefHeight="17.0" prefWidth="89.0" text="Адрес">
+                    <effect>
+                        <Blend />
+                    </effect>
+                </Label>
+                <Label layoutX="9.0" layoutY="85.0" prefHeight="17.0" prefWidth="89.0" text="Дата Рождения">
+                    <effect>
+                        <Blend />
+                    </effect>
+                </Label>
+                <Label fx:id="NimberClientid" layoutX="172.0" layoutY="61.0" prefHeight="17.0" prefWidth="76.0" text="----" />
+                <Label fx:id="addressClientid" layoutX="172.0" layoutY="111.0" prefHeight="17.0" prefWidth="76.0" text="----" />
+                <Label fx:id="BorndateClientid" layoutX="9.0" layoutY="111.0" prefHeight="17.0" prefWidth="76.0" text="----" />
+            <ScrollPane fitToHeight="true" fitToWidth="true" layoutX="302.0" layoutY="25.0" prefHeight="281.0" prefWidth="398.0">
+               <content>
+                  <AnchorPane fx:id="myApplicationsAnchorPane" prefHeight="400.0" prefWidth="400.0">
+                     <children>
+                        <VBox fx:id="myApplicationsVBox" spacing="10" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </ScrollPane>
+            <Label layoutX="172.0" layoutY="145.0" prefHeight="17.0" prefWidth="112.0" text="Пароль">
+               <effect>
+                  <Blend />
+               </effect>
+            </Label>
+            <Label fx:id="ParolClientid" layoutX="172.0" layoutY="165.0" prefHeight="17.0" prefWidth="76.0" text="----" />
+            <Label layoutX="431.0" layoutY="6.0" prefHeight="17.0" prefWidth="141.0" text="Заявления пользователя">
+               <effect>
+                  <Blend />
+               </effect>
+            </Label>
+            </children>
+        </AnchorPane>
+        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="231.0" layoutY="31.0" prefHeight="42.0" prefWidth="239.0" text="Заявление" textFill="WHITE">
+            <font>
+                <Font name="Agency FB" size="31.0" />
+            </font>
+        </Label>
+        <Button fx:id="BackAdministratorClientBtn" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="55.0" text="Назад" />
+    </children>
 </AnchorPane>
