@@ -21,7 +21,6 @@ public class DataBase {
                 Connection connection = DriverManager.getConnection("jdbc:sqlite:" + "Vodokanal.db");
                 Statement statement = connection.createStatement()) {
             statement.execute("INSERT INTO Клиент (Почта, Пароль, Телефон, Адрес, Дата, ФИО) VALUES (\"" + loginText + "\",\"" + passwordText + "\",\"" + numberText + "\",\"" + adressText + "\",\"" + dataText + "\",\"" + fioText + "\")");
-
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -153,4 +152,18 @@ public class DataBase {
             throw new RuntimeException(e);
         }
     }
+    public static String getUerLogin() {
+        try (Connection connection = DriverManager.getConnection("jdbc:sqlite:" + "Vodokanal.db");
+             Statement statement = connection.createStatement()) {
+            ResultSet result = statement.executeQuery("SELECT * FROM Клиент");
+            while (result.next()) {
+                return new String(result.getString("Почта"));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return null;
+    }
+
 }

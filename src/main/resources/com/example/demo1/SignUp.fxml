@@ -6,6 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.control.PasswordField?>
 <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" style="-fx-background-color: #2E3348;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo1.SignUp">
     <children>
         <AnchorPane layoutY="94.0" prefHeight="306.0" prefWidth="700.0" style="-fx-background-color: white;">
@@ -15,11 +16,11 @@
                         <Font size="17.0" />
                     </font>
                 </TextField>
-                <TextField fx:id="passwordreg" layoutX="201.0" layoutY="179.0" prefHeight="38.0" prefWidth="311.0" promptText="Пароль">
+                <PasswordField fx:id="passwordreg" layoutX="201.0" layoutY="179.0" prefHeight="38.0" prefWidth="311.0" promptText="Пароль">
                     <font>
                         <Font size="17.0" />
                     </font>
-                </TextField>
+                </PasswordField>
                 <Button fx:id="signUpRegButton" layoutX="284.0" layoutY="254.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="133.0" text="Зарегистрироваться" />
             <TextField fx:id="FIOreg" layoutX="59.0" layoutY="29.0" prefHeight="38.0" prefWidth="285.0" promptText="ФИО">
                <font>

@@ -59,10 +59,6 @@ public class HelloController implements javafx.fxml.Initializable{
             createApplicationPane(application);
         }
 
-        Popup popup = new Popup();
-        Label popupLabel = new Label("Заявление отправлено");
-        popup.getContent().add(popupLabel);
-
         LogOutBtn.setOnAction(actionEvent -> {
             // Закрываем текущее окно
            LogOutBtn.getScene().getWindow().hide();
@@ -91,7 +87,7 @@ public class HelloController implements javafx.fxml.Initializable{
             String fioText = FIOID.getText().trim();
             String zayavText = ZAYAVID.getText();
             String datepodText = DATEID.getText();
-            if(ZAYAVID == null){
+            if (ZAYAVID.getText().isEmpty()){
                 Alert alert = new Alert(AlertType.INFORMATION);
                 alert.setTitle("Ошибка");
                 alert.setHeaderText(null);
@@ -104,6 +100,9 @@ public class HelloController implements javafx.fxml.Initializable{
                 // Отображаем всплывающее окно и ждем закрытия
                 alert.showAndWait();}
             else{
+                Popup popup = new Popup();
+                Label popupLabel = new Label("Заявление отправлено");
+                popup.getContent().add(popupLabel);
                 String status = "Создано";
                 NewZayav(loginText,numberText,adressText,fioText,dataText,datepodText,zayavText,status);
                 updateApplicationsUI();

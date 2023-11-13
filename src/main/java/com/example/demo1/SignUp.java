@@ -2,6 +2,7 @@ package com.example.demo1;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,6 +13,7 @@ import javafx.stage.Popup;
 import javafx.stage.Stage;
 
 import static com.example.demo1.DataBase.NewUser;
+import static com.example.demo1.DataBase.getUerLogin;
 
 public class SignUp {
 
@@ -37,7 +39,7 @@ public class SignUp {
     private TextField Numberreg;
 
     @FXML
-    private TextField passwordreg;
+    private PasswordField passwordreg;
 
     @FXML
     private Button signUpRegButton;
@@ -49,6 +51,7 @@ public class SignUp {
         Popup popupReg = new Popup();
         Label popupLabel = new Label("Вы зарегистрировались!");
         popupReg.getContent().add(popupLabel);
+        String login = getUerLogin();
         signUpRegButton.setOnAction(actionEvent -> {
             String loginText = Loginreg.getText().trim();
             String passwordText = passwordreg.getText().trim();
@@ -57,42 +60,70 @@ public class SignUp {
             String dataText = Datereg.getText().trim();
             String fioText = FIOreg.getText().trim();
             if (!loginText.equals("") && !passwordText.equals("")&& !numberText.equals("")&& !adressText.equals("")&& !dataText.equals("")&& !fioText.equals("")){
-                NewUser(loginText, passwordText,numberText,adressText,fioText,dataText);
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Успех");
-                alert.setHeaderText(null);
-                alert.setContentText("Вы зарегистрировались!");
+                if (!fioText.matches(".*\\d+.*")&& (!numberText.matches(".*[a-zA-Z]+.*"))) {
+                    if(!login.equals(loginText)) {
 
-                // Создаем кнопку "Ок" и добавляем ее в всплывающее окно
-                ButtonType okButton = new ButtonType("Ок");
-                alert.getButtonTypes().setAll(okButton);
+                        NewUser(loginText, passwordText, numberText, adressText, fioText, dataText);
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("Успех");
+                        alert.setHeaderText(null);
+                        alert.setContentText("Вы зарегистрировались!");
 
-                // Отображаем всплывающее окно и ждем закрытия
-                alert.showAndWait();
-                signUpRegButton.getScene().getWindow().hide();
+                        // Создаем кнопку "Ок" и добавляем ее в всплывающее окно
+                        ButtonType okButton = new ButtonType("Ок");
+                        alert.getButtonTypes().setAll(okButton);
 
-                FXMLLoader loader = new FXMLLoader();
-                loader.setLocation(getClass().getResource("Register-view.fxml"));
+                        // Отображаем всплывающее окно и ждем закрытия
+                        alert.showAndWait();
+                        signUpRegButton.getScene().getWindow().hide();
 
-                try {
-                    Parent root = loader.load();
+                        FXMLLoader loader = new FXMLLoader();
+                        loader.setLocation(getClass().getResource("Register-view.fxml"));
 
-                    // Получаем текущий Stage
-                    Stage stage = (Stage) signUpRegButton.getScene().getWindow();
+                        try {
+                            Parent root = loader.load();
 
-                    // Устанавливаем новое содержимое для окна
-                    stage.setScene(new Scene(root));
-                    stage.show();
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
+                            // Получаем текущий Stage
+                            Stage stage = (Stage) signUpRegButton.getScene().getWindow();
+
+                            // Устанавливаем новое содержимое для окна
+                            stage.setScene(new Scene(root));
+                            stage.show();
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }else {
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("Ошибка");
+                        alert.setHeaderText(null);
+                        alert.setContentText("Такая почта уже существует");
+
+                        // Создаем кнопку "Ок" и добавляем ее в всплывающее окно
+                        ButtonType okButton = new ButtonType("Ок");
+                        alert.getButtonTypes().setAll(okButton);
+
+                        // Отображаем всплывающее окно и ждем закрытия
+                        alert.showAndWait();
+                    }
+            } else {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Ошибка");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Введены некорректные данные");
+
+                    // Создаем кнопку "Ок" и добавляем ее в всплывающее окно
+                    ButtonType okButton = new ButtonType("Ок");
+                    alert.getButtonTypes().setAll(okButton);
+
+                    // Отображаем всплывающее окно и ждем закрытия
+                    alert.showAndWait();}
                 }
-            }
 
             else{
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Ошибка");
                 alert.setHeaderText(null);
-                alert.setContentText("Зполните все данные");
+                alert.setContentText("Заполните все данные");
 
                 // Создаем кнопку "Ок" и добавляем ее в всплывающее окно
                 ButtonType okButton = new ButtonType("Ок");
