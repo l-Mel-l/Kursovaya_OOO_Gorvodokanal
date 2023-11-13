@@ -13,7 +13,7 @@ import javafx.stage.Popup;
 import javafx.stage.Stage;
 
 import static com.example.demo1.DataBase.NewUser;
-import static com.example.demo1.DataBase.getUerLogin;
+import static com.example.demo1.DataBase.getUserLogin;
 
 public class SignUp {
 
@@ -51,7 +51,7 @@ public class SignUp {
         Popup popupReg = new Popup();
         Label popupLabel = new Label("Вы зарегистрировались!");
         popupReg.getContent().add(popupLabel);
-        String login = getUerLogin();
+        String login = getUserLogin();
         signUpRegButton.setOnAction(actionEvent -> {
             String loginText = Loginreg.getText().trim();
             String passwordText = passwordreg.getText().trim();
@@ -61,7 +61,7 @@ public class SignUp {
             String fioText = FIOreg.getText().trim();
             if (!loginText.equals("") && !passwordText.equals("")&& !numberText.equals("")&& !adressText.equals("")&& !dataText.equals("")&& !fioText.equals("")){
                 if (!fioText.matches(".*\\d+.*")&& (!numberText.matches(".*[a-zA-Z]+.*"))) {
-                    if(!login.equals(loginText)) {
+                    if(!login.equals(loginText)||(login.equals("none"))) {
 
                         NewUser(loginText, passwordText, numberText, adressText, fioText, dataText);
                         Alert alert = new Alert(Alert.AlertType.INFORMATION);

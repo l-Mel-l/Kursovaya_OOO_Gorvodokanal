@@ -1,5 +1,11 @@
 package com.example.demo1;
 
+import javafx.scene.control.Alert;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +28,11 @@ public class DataBase {
                 Statement statement = connection.createStatement()) {
             statement.execute("INSERT INTO Клиент (Почта, Пароль, Телефон, Адрес, Дата, ФИО) VALUES (\"" + loginText + "\",\"" + passwordText + "\",\"" + numberText + "\",\"" + adressText + "\",\"" + dataText + "\",\"" + fioText + "\")");
         } catch (SQLException e) {
+            try {
+                BufferedWriter w = new BufferedWriter(new FileWriter(new File("asdasdasd.txt")));
+                w.write(e.getMessage());
+            }
+            catch (IOException ex) {}
             throw new RuntimeException(e);
         }
     }
@@ -152,7 +163,7 @@ public class DataBase {
             throw new RuntimeException(e);
         }
     }
-    public static String getUerLogin() {
+    public static String getUserLogin() {
         try (Connection connection = DriverManager.getConnection("jdbc:sqlite:" + "Vodokanal.db");
              Statement statement = connection.createStatement()) {
             ResultSet result = statement.executeQuery("SELECT * FROM Клиент");
@@ -163,7 +174,7 @@ public class DataBase {
             throw new RuntimeException(e);
         }
 
-        return null;
+        return "none";
     }
 
 }
